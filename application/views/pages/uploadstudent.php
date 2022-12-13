@@ -16,15 +16,29 @@
                   <a href="<?php echo base_url('uploadclass')?>" class="btn btn-light border border-2">Upload New Class</a>  
 				  <a href="<?php echo base_url('uploadstudent')?>" class="btn btn-light border border-2 active">Upload New Student</a>  
                   <a href="<?php echo base_url('settings') ?>" class="btn btn-light border border-2">Settings</a>
-                  <a href="<?php echo base_url('') ?>" class="btn btn-light border border-2">Logout</a>    
+                  <a href="<?php echo base_url('logout') ?>" class="btn btn-light border border-2">Logout</a>    
                 </div>
             </div>
             <!-- END OF NAV TABS -->
             <!-- START OF CONTENT TAB -->
             <div class="col-10">
                 <div class="container-fluid" style="background-color: rgb(17, 11, 89);">
-                    <p class="text-white text-start font-monospace pt-2">Kindly follow the sample to upload your new class in excel file or download student template <a href="#">here</a>. Thank you!</p>
-                    <div class="table-responsive px-5 py-4">
+                    <p class="text-white text-start font-monospace pt-2">Kindly follow the sample to upload your new class in excel file or download student template <a href="<?php echo base_url('Uploader/StudentTableFormatDownload') ?>" style="color: yellow;">here</a>. Thank you!</p>
+                    <div class="container-fluid text-end mb-3">
+						<form action="<?php echo base_url('Uploader/uploadStudents')?>" method="post" enctype="multipart/form-data" class="form-inline">
+							<div class="row g-0 align-items-center">
+								<div class="col">
+									<div class="position-relative">
+										<input type="file" name="file" id="file" class="form-control" required accept=".xls, .xlsx">
+									</div>
+								</div>
+								<div class="col-auto ps-xl-2">
+									<input type="submit" name="submit" value="Upload" class="btn text-end text-dark fw-bold" style="background-color: yellow;">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="table-responsive px-5 py-4">
                         <table class="table table-bordered table-sm bg-white">
                             <thead>
                                 <tr>
@@ -36,7 +50,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+								<tr>
                                     <td>1011111</td>
                                     <td>Mouse</td>
                                     <td>Mickey</td>
@@ -45,11 +59,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="container-fluid text-end mt-3">
-                    <button type="file" class="btn text-end text-dark fw-bold" style="background-color: yellow;">
-                        Upload File
-                    </button>
                 </div>
             </div>
             <!-- END OF CONTENT TAB -->

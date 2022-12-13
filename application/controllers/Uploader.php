@@ -19,14 +19,14 @@ class Uploader extends CI_Controller {
 		header('Content-Disposition: attachment; filename="Student Table Format.xlsx"');
 		$worksheet = new Spreadsheet();
 		$sheet = $worksheet->getActiveSheet();
-		$sheet->setCellValue('A1', 'studentid');
-		$sheet->setCellValue('B1', 'last_name');
-		$sheet->setCellValue('C1', 'first_name');
-		$sheet->setCellValue('D1', 'middle_name');
-		$sheet->setCellValue('E1', 'email_address');
-		$sheet->setCellValue('F1', 'course');
-		$sheet->setCellValue('G1', 'year_level');
-		$sheet->setCellValue('H1', 'subject_id');
+		$sheet->setCellValue('A1', 'Student ID');
+		$sheet->setCellValue('B1', 'Last Name');
+		$sheet->setCellValue('C1', 'First Name');
+		$sheet->setCellValue('D1', 'Middle Name');
+		$sheet->setCellValue('E1', 'Email');
+		$sheet->setCellValue('F1', 'Course');
+		$sheet->setCellValue('G1', 'Year Level');
+		$sheet->setCellValue('H1', 'Subject ID');
 
 		$writer = new Xlsx($worksheet);
 		$writer->save("php://output");
@@ -90,15 +90,14 @@ class Uploader extends CI_Controller {
 		header('Content-Disposition: attachment; filename="Subject Table Format.xlsx"');
 		$worksheet = new Spreadsheet();
 		$sheet = $worksheet->getActiveSheet();
-		$sheet->setCellValue('A1', 'subject_code');
-		$sheet->setCellValue('B1', 'subject_description');
-		$sheet->setCellValue('C1', 'section');
-		$sheet->setCellValue('D1', 'class_time');
-		$sheet->setCellValue('E1', 'class_day');
-		$sheet->setCellValue('F1', 'room_location');
-		$sheet->setCellValue('G1', 'semester');
-		$sheet->setCellValue('H1', 'school_year');
-		$sheet->setCellValue('I1', 'instructor_id');
+		$sheet->setCellValue('A1', 'Subject Code');
+		$sheet->setCellValue('B1', 'Subject Description');
+		$sheet->setCellValue('C1', 'Section');
+		$sheet->setCellValue('D1', 'Time');
+		$sheet->setCellValue('E1', 'Day');
+		$sheet->setCellValue('F1', 'Room');
+		$sheet->setCellValue('G1', 'Semester');
+		$sheet->setCellValue('H1', 'School Year');
 
 		$writer = new Xlsx($worksheet);
 		$writer->save("php://output");
@@ -121,7 +120,8 @@ class Uploader extends CI_Controller {
 		$spreadsheet = $reader->load($_FILES['file']['tmp_name']);
 		$sheetdata = $spreadsheet->getActiveSheet()->toArray();
 		$sheetcount = count($sheetdata);
-
+		$instructor_id = $this->session->userdata('auth_user')->instructor_id;
+		
 		if($sheetcount>1)
 		{
 			for($i=1; $i < $sheetcount; $i++)
@@ -134,7 +134,6 @@ class Uploader extends CI_Controller {
 				$room_location 		 = $sheetdata[$i][5];
 				$semester  		 	 = $sheetdata[$i][6];
 				$school_year 		 = $sheetdata[$i][7];
-				$instructor_id 		 = $sheetdata[$i][8];
 
 				$subject[] = array(
 					'subject_code'  		=> $subject_code,
@@ -151,7 +150,7 @@ class Uploader extends CI_Controller {
 
 			$uploadSubjects = $uploader->uploadSubjects($subject);
 			if($uploadSubjects) {
-				echo 'Data uploaded successfully';
+				redirect(base_url('uploadclass'));
 			} else {
 				echo 'Data not uploaded. Please try again.';
 			}

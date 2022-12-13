@@ -9,7 +9,7 @@ class UserModel extends CI_Model
 		$this->db->select('*');
 		$this->db->from('instructor');
 		$this->db->where('password', $data['password']);
-		$this->db->or_where('instructor_id', $data['id_number']);
+		$this->db->where('instructor_id', $data['id_number']);
 		$this->db->limit(1);
 
 		$query = $this->db->get();
@@ -20,6 +20,28 @@ class UserModel extends CI_Model
 		else {
 			return false;
 		}
+	}
+
+	public function getAllClass($instructor_id)
+	{
+		$this->db->select('*');
+		$this->db->from('class_view');
+		$this->db->where('instructor_id', $instructor_id);
+
+		$query = $this->db->get();
+
+		return $query;
+	}
+
+	public function getAllStudent($subject_id)
+	{
+		$this->db->select('*');
+		$this->db->from('class_view');
+		$this->db->where('subject_id', $subject_id);
+
+		$query = $this->db->get();
+
+		return $query;
 	}
 
 }

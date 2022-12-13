@@ -2,6 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CCRMS extends CI_Controller {
+	public function __construct() 
+	{
+		parent::__construct();
+
+		$this->load->model('authentication');
+	}
 
 // LOGIN
 	public function index()
@@ -31,19 +37,25 @@ class CCRMS extends CI_Controller {
 			$result = $user->loginUser($data);
 
 			if($result != FALSE) {
-				$this->session->set_userdata('authenticated', $result->user_type_id);
-				// set user details
+				$this->session->set_userdata('authenticated', 1);
 				$this->session->set_userdata('auth_user', $result);
-				$this->session->set_flashdata('status', 'Login Success');
 				
 				redirect(base_url('dashboard'));
 			}
 			else {
-				$this->session->set_flashdata('status', 'Invalid ID Number or Password');
 				redirect(base_url('login'));
 			}
 		}
 	}
+
+	public function logout()
+	{
+		$this->session->unset_userdata('authenticated');
+		$this->session->unset_userdata('auth_user');
+
+		redirect(base_url('login'));
+	}
+
 // FORGOT PASSWORD
     public function forgot()
 	{
@@ -68,14 +80,40 @@ class CCRMS extends CI_Controller {
 // UPLOAD
 	public function uploadclass()
 	{
+		$this->load->model('usermodel');
+		$user = new UserModel();
+		$instructor_id = $this->session->userdata('auth_user')->instructor_id;
+
+		$getAllClass = $user->getAllClass($instructor_id);
+		$data['subjects'] = $getAllClass->result();
+
 		$this->load->view('templates/header');
-		$this->load->view('pages/uploadclass');
+		$this->load->view('pages/uploadclass', $data);
 		$this->load->view('templates/footer');	
 	}
 // UPLOAD
 	public function uploadstudent()
 	{
+		$this->load->model('usermodel');
+		$user = new UserModel();
+		$instructor_id = $this->session->userdata('auth_user')->instructor_id;
+
+		$getAllClass = $user->getAllClass($instructor_id);
+		$getAllClass = $getAllClass->result();
+		$subids = $getAllClass;
+		foreach($subids as $id) {
+			$getAllStudent = $user->getAllStudent($id->subject_id);
+			$data['students'] = $getAllStudent->result();
+		}
+
+		// var_dump($data['students']);
+		// $data['subIDs'] = $subids->subject_id;
+		
+		// $getAllStudent = $user->getAllStudent($subject_id);
+		// $data['students'] = $getAllStudent->result();
+
 		$this->load->view('templates/header');
+		// $this->load->view('pages/uploadstudent', $data);
 		$this->load->view('pages/uploadstudent');
 		$this->load->view('templates/footer');	
 	}
