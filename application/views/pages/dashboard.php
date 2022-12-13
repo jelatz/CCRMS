@@ -16,14 +16,16 @@
                 <div class="nav nav-pills flex-column gap-5">
                   <a href="<?php echo base_url('dashboard')?>" class="btn btn-light border border-2 active">Manage Class</a>  
                   <a href="<?php echo base_url('uploadclass')?>" class="btn btn-light border border-2">Upload New Class</a>  
+				  <a href="<?php echo base_url('uploadstudent')?>" class="btn btn-light border border-2">Upload New Student</a>
                   <a href="<?php echo base_url('settings') ?>" class="btn btn-light border border-2">Settings</a>  
-                  <a href="<?php echo base_url('') ?>" class="btn btn-light border border-2">Logout</a>  
+                  <a href="<?php echo base_url('logout') ?>" class="btn btn-light border border-2">Logout</a>  
                 </div>
             </div>
             <div class="col-md-10 px-5">
+				<?php // echo $this->session->userdata('auth_user')->instructor_id; ?>
                 <div class="row">
                     <div class="col-12 text-center">
-                        <p class="text-white fs-5 p-1" style="background-color: rgb(17, 11, 89);">Hello Professor Juan!</p>
+                        <p class="text-white fs-5 p-1" style="background-color: rgb(17, 11, 89);">Hello Professor <?php echo $this->session->userdata('auth_user')->first_name; ?>!</p>
                     </div>
                 </div>
 <!-- NAVIGATION TABS END -->

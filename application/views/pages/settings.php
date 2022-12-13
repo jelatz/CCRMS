@@ -14,9 +14,10 @@
             <div class="col-md-2">
                 <div class="nav nav-pills flex-column gap-5">
                   <a href="<?php echo base_url('dashboard')?>" class="btn btn-light border border-2">Manage Class</a>  
-                  <a href="<?php echo base_url('uploadclass')?>" class="btn btn-light border border-2">Upload New Class</a>  
+                  <a href="<?php echo base_url('uploadclass')?>" class="btn btn-light border border-2">Upload New Class</a>
+				  <a href="<?php echo base_url('uploadstudent')?>" class="btn btn-light border border-2">Upload New Student</a>  
                   <a href="<?php echo base_url('settings') ?>" class="btn btn-light border border-2 active">Settings</a>  
-                  <a href="<?php echo base_url('') ?>" class="btn btn-light border border-2">Logout</a>    
+                  <a href="<?php echo base_url('logout') ?>" class="btn btn-light border border-2">Logout</a>    
                 </div>
             </div>
             <div class="col-md-10 px-5">

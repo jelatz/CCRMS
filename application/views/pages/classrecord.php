@@ -8,7 +8,7 @@
             </span>
         </div>
         <div class="col-7 d-flex justify-content-end align-items-center">
-                <a href="<?php echo base_url()?>" class="btn btn-light border border-2 me-5 fw-2 text-white" style="background-color: rgb(17, 11, 89);">
+                <a href="<?php echo base_url('logout')?>" class="btn btn-light border border-2 me-5 fw-2 text-white" style="background-color: rgb(17, 11, 89);">
                     Logout
                     <i class="bi bi-arrow-right"></i>
                 </a>   
@@ -25,6 +25,7 @@
                     <a href="<?php echo base_url('uploadclass')?>" class="btn btn-light border border-2">
                         Upload New Class
                     </a>  
+					<a href="<?php echo base_url('uploadstudent')?>" class="btn btn-light border border-2">Upload New Student</a>
                     <a href="<?php echo base_url('settings') ?>" class="btn btn-light border border-2">
                     Settings
                     </a>
