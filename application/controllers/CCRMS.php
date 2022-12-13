@@ -2,50 +2,62 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CCRMS extends CI_Controller {
-
-// LOGIN
-	public function index()
+	public function __construct()
 	{
-		$this->load->view('templates/header');
-		$this->load->view('login');
-		$this->load->view('templates/footer');
-
+	/*call CodeIgniter's default Constructor*/
+	parent::__construct();
+	
+	/*load database libray manually*/
+	$this->load->database();
+	
+	/*load Model*/
+	$this->load->model('UserModel');
 	}
+// LOGIN
+public function index()
+{
+	$this->load->view('templates/header');
+	$this->load->view('login');
+	$this->load->view('templates/footer');
+	
+}
 
-	public function login(){
-		$this->form_validation->set_rules('id_number', 'ID Number', 'trim|numeric|required'); 
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');  
-		
-		if($this->form_validation->run() == FALSE) {
-			$this->index();
+public function login()
+{
+	$this->load->model('UserModel');
+	$this->form_validation->set_rules('id', 'ID Number', 'trim|numeric|required'); 
+	$this->form_validation->set_rules('password', 'Password', 'trim|required');  
+	
+	if($this->form_validation->run() == FALSE) {
+		$this->index();
+	}
+	else {
+		$data = [
+			'id_number' => $this->input->post('id'),
+			'password' => md5($this->input->post('password')),
+		]; 
+
+		$user = new UserModel;
+		$result = $user->loginUser($data);
+
+		if($result != FALSE) {
+			$this->session->set_userdata('authenticated', $result->user_type_id);
+			// set user details
+			$this->session->set_userdata('auth_user', $result);
+			$this->session->set_flashdata('status', 'Login Success');
+			
+			if($result->user_type_id == 3) {
+				redirect(base_url('admin'));
+			}
+
+			redirect(base_url('dasboard'));
 		}
 		else {
-			$data = [
-				'id_number' => $this->input->post('id_number'),
-				'password' => md5($this->input->post('password')),
-			]; 
-
-			$user = new UserModel;
-			$result = $user->loginUser($data);
-
-			if($result != FALSE) {
-				$this->session->set_userdata('authenticated', $result->user_type_id);
-				// set user details
-				$this->session->set_userdata('auth_user', $result);
-				$this->session->set_flashdata('status', 'Login Success');
-				
-				if($result->user_type_id == 3) {
-					redirect(base_url('admin'));
-				}
-
-				redirect(base_url('user'));
-			}
-			else {
-				$this->session->set_flashdata('status', 'Invalid ID Number or Password');
-				redirect(base_url('login'));
-			}
+			$this->session->set_flashdata('status', 'Invalid ID Number or Password');
+			redirect(base_url('index'));
 		}
 	}
+}
 // FORGOT PASSWORD
     public function forgot()
 	{
@@ -59,6 +71,30 @@ class CCRMS extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('signup');
 		$this->load->view('templates/footer');
+	}
+// INSERT SIGNED UP USER TO DB
+	public function insert()
+	{
+		$this->form_validation->set_rules('id', 'Instructor ID', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
+		$this->form_validation->set_rules('first_name', 'First Name', 'required');
+		$this->form_validation->set_rules('middle_name', 'Middle Name', 'required');
+
+		if($this->form_validation->run()){
+			$data = [
+				'instructor_id' => $this->input->post('id'),
+				'password' => $this->input->post('password'),
+				'last_name' => $this->input->post('last_name'),
+				'first_name' => $this->input->post('first_name'),
+				'middle_name' => $this->input->post('middle_name'),
+			];
+			$this->load->model('UserModel','user');
+			$this->user->insert($data);
+			redirect(base_url('signup'));
+		}else{
+			$this->signup();
+		}
 	}
 // DASHBOARD
 	public function dashboard()

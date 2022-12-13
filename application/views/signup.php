@@ -12,36 +12,36 @@
             <!-- SECOND COLUMN FOR LOGO -->
             <div class="col align-self-center my-auto p-5">
                 <!-- LOGIN FORM -->
-                <form action="<?php echo base_url('dashboard')?>">
+                <form action="<?php echo base_url('insert')?>" method="POST">
+                    <label for="instructor ID" class="form-label fw-bold">
+                        Instructor ID: 
+                    </label>
+                    <input type="text" class="form-control" style="background-color: yellow;" name="id">
                     <label for="userName" class="form-label fw-bold">
                         First Name: 
                     </label>
-                    <input type="text" class="form-control" style="background-color: yellow;">
+                    <input type="text" class="form-control" style="background-color: yellow;" name="first_name">
                     <label for="password" class="form-label fw-bold">
                         Middle Name: 
                     </label>
-                    <input type="password" class="form-control" style="background-color: yellow;">
+                    <input type="text" class="form-control" style="background-color: yellow;" name="middle_name">
                     <label for="confirmpassword" class="form-label fw-bold">
                         Last Name: 
                     </label>
-                    <input type="password" class="form-control" style="background-color: yellow;">
-                    <label for="confirmpassword" class="form-label fw-bold">
-                        Email Address: 
-                    </label>
-                    <input type="password" class="form-control" style="background-color: yellow;">
+                    <input type="text" class="form-control" style="background-color: yellow;" name="last_name">
                     <label for="confirmpassword" class="form-label fw-bold">
                         Password: 
                     </label>
-                    <input type="password" class="form-control" style="background-color: yellow;">
+                    <input type="password" class="form-control" style="background-color: yellow;" name="password">
                     <label for="confirmpassword" class="form-label fw-bold">
                         Confirm Password: 
                     </label>
-                    <input type="password" class="form-control" style="background-color: yellow;">
+                    <input type="password" class="form-control" style="background-color: yellow;" name="confirm_password">
                     <!-- ROW FOR BUTTON -->
                     <div class="row mt-5 text-center">
                         <!-- COLUMN FOR BUTTON -->
                         <div class="col">
-                            <button type="submit" class="btn btn-primary w-50" name="lgn-btn">
+                            <button type="submit" class="btn btn-primary w-50" name="signup-btn">
                                 Sign Up
                             </button>
                         </div>

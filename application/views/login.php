@@ -15,10 +15,15 @@
             <!-- SECOND COLUMN FOR LOGO -->
             <div class="col align-self-center my-auto p-md-5">
                 <!-- LOGIN FORM -->
-            
-                <form action="<?php echo base_url('login')?>">
-                    <label for="userName" class="form-label fw-bold">Email Address: </label>
-                    <input type="text" class="form-control mb-3" style="background-color: yellow;" name="email">
+        
+                <form action="<?php echo base_url('login')?>" method="POST">
+                <?php if ($this->session->flashdata('status')) : ?>
+				<div class="alert alert-danger">
+				<?= $this->session->flashdata('status'); ?>
+				</div>
+				<?php endif; ?>
+                    <label for="id" class="form-label fw-bold">ID : </label>
+                    <input type="text" class="form-control mb-3" style="background-color: yellow;" name="id">
                     <label for="password" class="form-label fw-bold">Password: </label>
                     <input type="password" class="form-control" style="background-color: yellow;" name="password">
                     <!-- ROW FOR BUTTON -->
@@ -26,13 +31,6 @@
                         <!-- COLUMN FOR BUTTON -->
                         <div class="col">
                             <button type="submit" class="btn btn-primary w-50" name="lgn-btn">LOG IN</button>
-                        </div>
-                    </div>
-                    <!-- ROW FOR FORGOT PASS -->
-                    <div class="row text-center mt-2">
-                        <!-- COLUMN FOR FORGOT PASS -->
-                        <div class="col">
-                            <a href="<?php echo base_url('forgot') ?>">Forgot Password</a>
                         </div>
                     </div>
                     <div class="row text-center mt-5">

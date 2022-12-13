@@ -49,8 +49,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
 $route['default_controller'] = 'CCRMS/index';
 $route['404_override'] = '';
+
+$route['login']['POST'] = 'CCRMS/login';
+$route['login']['GET'] = 'CCRMS';
+
+$route['insert']['POST'] = 'CCRMS/insert';
+$route['insert']['GET'] = 'CCRMS';
+
 $route['translate_uri_dashes'] = FALSE;
 $route['forgot'] = 'CCRMS/forgot';
 $route['signup'] = 'CCRMS/signup';
@@ -59,3 +67,4 @@ $route['classrecord'] = 'CCRMS/classrecord';
 $route['uploadclass'] = 'CCRMS/uploadclass';
 $route['settings'] = 'CCRMS/settings';
 $route['attendance'] = 'CCRMS/attendance';
+// $route['login'] = 'CCRMS/login';
