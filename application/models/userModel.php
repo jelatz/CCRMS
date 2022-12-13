@@ -22,6 +22,18 @@ class UserModel extends CI_Model
 		}
 	}
 
+	public function updateUserPassword($instructor_id, $password)
+	{
+		$query = $this->db->query("UPDATE instructor SET password = '$password' WHERE instructor_id = $instructor_id");
+	
+		if ($this->db->affected_rows() == -1) {
+			return false;
+		}
+		else {
+			return $query;
+		}
+	}
+
 	public function getAllClass($instructor_id)
 	{
 		$this->db->select('*');
@@ -36,8 +48,9 @@ class UserModel extends CI_Model
 	public function getAllStudent($subject_id)
 	{
 		$this->db->select('*');
-		$this->db->from('class_view');
+		$this->db->from('student_view');
 		$this->db->where('subject_id', $subject_id);
+		$this->db->order_by('subject');
 
 		$query = $this->db->get();
 

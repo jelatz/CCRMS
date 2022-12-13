@@ -58,6 +58,9 @@ $route['login']['GET'] = 'CCRMS';
 $route['login']['POST'] = 'CCRMS/login';
 $route['logout']['GET'] = 'CCRMS/logout';
 
+$route['changepassword']['GET'] = 'CCRMS/changepassword';
+$route['changepassword']['POST'] = 'CCRMS/changepassword';
+
 $route['forgot'] = 'CCRMS/forgot';
 $route['signup'] = 'CCRMS/signup';
 $route['dashboard'] = 'CCRMS/dashboard';

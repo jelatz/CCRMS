@@ -43,7 +43,49 @@ class CCRMS extends CI_Controller {
 				redirect(base_url('dashboard'));
 			}
 			else {
+				$this->session->set_flashdata('status', 'Invalid ID Number or Password');
 				redirect(base_url('login'));
+			}
+		}
+	}
+
+	public function changepassword()
+	{
+		$this->load->model('usermodel'); 
+
+		$this->form_validation->set_rules('new_password', 'New Password', 'trim|required'); 
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required');  
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->settings();
+		}
+		else {
+			$instructor_id = $this->session->userdata('auth_user')->instructor_id;
+			
+			$updatedPassword = md5($this->input->post('confirm_password'));
+
+			if($this->input->post('new_password') != $this->input->post('confirm_password')) {
+				$this->session->set_flashdata('status', 'Passwords do not match');
+				redirect(base_url('settings'));
+			}
+			else {
+				$user = new UserModel;
+				$result = $user->updateUserPassword($instructor_id, $updatedPassword);
+				
+				if($result != FALSE) {
+					$this->session->unset_userdata('authenticated');
+					$this->session->unset_userdata('auth_user');
+
+					$this->session->set_flashdata('status', 'Update Password Success. Please log in again.');
+					redirect(base_url('login'));
+				}
+				else {
+					$this->session->unset_userdata('authenticated');
+					$this->session->unset_userdata('auth_user');
+					
+					$this->session->set_flashdata('status', 'Something went wrong. Try logging in your old or new or contact administrator if issue still exists.');
+					redirect(base_url('login'));
+				}
 			}
 		}
 	}
@@ -97,24 +139,23 @@ class CCRMS extends CI_Controller {
 		$this->load->model('usermodel');
 		$user = new UserModel();
 		$instructor_id = $this->session->userdata('auth_user')->instructor_id;
-
+	
 		$getAllClass = $user->getAllClass($instructor_id);
-		$getAllClass = $getAllClass->result();
-		$subids = $getAllClass;
-		foreach($subids as $id) {
-			$getAllStudent = $user->getAllStudent($id->subject_id);
-			$data['students'] = $getAllStudent->result();
-		}
-
-		// var_dump($data['students']);
-		// $data['subIDs'] = $subids->subject_id;
 		
-		// $getAllStudent = $user->getAllStudent($subject_id);
-		// $data['students'] = $getAllStudent->result();
+		foreach( $getAllClass->result() as $class) {
+			$getAllStudent = $user->getAllStudent($class->subject_id);
 
+			if(count($getAllStudent->result()) > 0) {
+				foreach($getAllStudent->result() as $student) {
+					$data[] = $student;
+				}
+			}
+		}
+		// var_dump($data);
+		$data['students'] = $data;
+		// echo json_encode($data);
 		$this->load->view('templates/header');
-		// $this->load->view('pages/uploadstudent', $data);
-		$this->load->view('pages/uploadstudent');
+		$this->load->view('pages/uploadstudent', $data);
 		$this->load->view('templates/footer');	
 	}
 	
