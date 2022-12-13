@@ -11,6 +11,41 @@ class CCRMS extends CI_Controller {
 		$this->load->view('templates/footer');
 
 	}
+
+	public function login(){
+		$this->form_validation->set_rules('id_number', 'ID Number', 'trim|numeric|required'); 
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');  
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->index();
+		}
+		else {
+			$data = [
+				'id_number' => $this->input->post('id_number'),
+				'password' => md5($this->input->post('password')),
+			]; 
+
+			$user = new UserModel;
+			$result = $user->loginUser($data);
+
+			if($result != FALSE) {
+				$this->session->set_userdata('authenticated', $result->user_type_id);
+				// set user details
+				$this->session->set_userdata('auth_user', $result);
+				$this->session->set_flashdata('status', 'Login Success');
+				
+				if($result->user_type_id == 3) {
+					redirect(base_url('admin'));
+				}
+
+				redirect(base_url('user'));
+			}
+			else {
+				$this->session->set_flashdata('status', 'Invalid ID Number or Password');
+				redirect(base_url('login'));
+			}
+		}
+	}
 // FORGOT PASSWORD
     public function forgot()
 	{
@@ -60,6 +95,12 @@ class CCRMS extends CI_Controller {
 		$data = array_merge($data1,$data2);   
 
 		$this->load->view('pages/exam');
+	}
+// ATTENDANCE
+	public function attendance(){
+		$this->load->view('templates/header');
+		$this->load->view('pages/attendance');
+		$this->load->view('templates/footer');
 	}
 
 
