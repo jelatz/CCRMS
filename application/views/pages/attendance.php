@@ -25,7 +25,6 @@
                     <a href="<?php echo base_url('uploadclass')?>" class="btn btn-light border border-2">
                         Upload New Class
                     </a>  
-					<a href="<?php echo base_url('uploadstudent')?>" class="btn btn-light border border-2">Upload New Student</a>
                     <a href="<?php echo base_url('settings') ?>" class="btn btn-light border border-2">
                     Settings
                     </a>
@@ -46,20 +45,26 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Student ID</th>
                                 <th>Student</th>
-                                <th><a href="<?php echo base_url('attendance');?>" class="text-decoration-none text-dark">SQ(30%)</a></th>
-                                <th><a href="" class="text-decoration-none text-dark">Class Participation(30%)</a></th>
-                                <th>Other Requirements(6.67%)</th>
-                                <th> <a href="" class="text-decoration-none text-dark">Periodical Test (33.33%)</a></th>
-                                <th>Percentage</th>
-                                <th>Tentative</th>
-                                <th>Grade</th>
+                                <th>Attendance</th>
+                                <th>Quiz</th>
+                                <th>Assignment</th>
+                                <th>Prelim</th>
+                                <th>Midterm</th>
+                                <th>PreFinal</th>
+                                <th>Final</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                               
+                                <td>Janna BONJOOUUUURR</td>
+                                <td>ALWAYS ABSENT!</td>
+                                <td>100(cheating)</td>
+                                <td>100(cheating)</td>
+                                <td>Tiktok</td>
+                                <td>story</td>
+                                <td>beach</td>
+                                <td>Tent</td>
                             </tr>
                         </tbody>
                     </table>

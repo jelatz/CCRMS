@@ -1,3 +1,6 @@
+
+
+
 <body>
     <!-- container -->
     <div class="container-fluid">
@@ -13,11 +16,11 @@
             <div class="col align-self-center my-auto p-md-5">
                 <!-- LOGIN FORM -->
             
-                <form action="<?php echo base_url('dashboard')?>">
+                <form action="<?php echo base_url('login')?>">
                     <label for="userName" class="form-label fw-bold">Email Address: </label>
-                    <input type="text" class="form-control mb-3" style="background-color: yellow;">
+                    <input type="text" class="form-control mb-3" style="background-color: yellow;" name="email">
                     <label for="password" class="form-label fw-bold">Password: </label>
-                    <input type="password" class="form-control" style="background-color: yellow;">
+                    <input type="password" class="form-control" style="background-color: yellow;" name="password">
                     <!-- ROW FOR BUTTON -->
                     <div class="row mt-5 text-center">
                         <!-- COLUMN FOR BUTTON -->

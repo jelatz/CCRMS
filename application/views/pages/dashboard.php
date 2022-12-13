@@ -45,10 +45,7 @@
                         </thead>
                         <tbody>
                             <tr class="justify-content-center text-center">
-                                <td>
-                                    <input type="text">
-                                </td>
-                                <!-- <td><a href="<?php echo base_url('classrecord');?>" class="text-decoration-none text-dark">English</a></td> -->
+                                <td><a href="<?php echo base_url('classrecord');?>" class="text-decoration-none text-dark">English</a></td>
                                 <td><a href="<?php echo base_url('classrecord');?>" class="text-decoration-none text-dark">Filipino</a></td>
                                 <td><a href="<?php echo base_url('classrecord');?>" class="text-decoration-none text-dark">Capstone 1</a></td>
                                 <td><a href="<?php echo base_url('classrecord');?>" class="text-decoration-none text-dark">Math</a></td>
