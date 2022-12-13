@@ -39,6 +39,14 @@ class CCRMS extends CI_Controller {
 		$this->load->view('pages/uploadclass');
 		$this->load->view('templates/footer');	
 	}
+// UPLOAD
+	public function uploadstudent()
+	{
+		$this->load->view('templates/header');
+		$this->load->view('pages/uploadstudent');
+		$this->load->view('templates/footer');	
+	}
+	
 // SETTINGS
 	public function settings()
 	{

@@ -25,6 +25,7 @@
                     <a href="<?php echo base_url('uploadclass')?>" class="btn btn-light border border-2">
                         Upload New Class
                     </a>  
+					<a href="<?php echo base_url('uploadstudent')?>" class="btn btn-light border border-2">Upload New Student</a>
                     <a href="<?php echo base_url('settings') ?>" class="btn btn-light border border-2">
                     Settings
                     </a>

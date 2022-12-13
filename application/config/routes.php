@@ -57,4 +57,5 @@ $route['signup'] = 'CCRMS/signup';
 $route['dashboard'] = 'CCRMS/dashboard';
 $route['classrecord'] = 'CCRMS/classrecord';
 $route['uploadclass'] = 'CCRMS/uploadclass';
+$route['uploadstudent'] = 'CCRMS/uploadstudent';
 $route['settings'] = 'CCRMS/settings';
