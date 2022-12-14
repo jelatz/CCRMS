@@ -6,44 +6,60 @@ class CCRMS extends CI_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('authentication');
+		if(!$this->session->has_userdata('authenticated'))
+		{
+			// $this->session->set_flashdata('status', 'You are already logged in');
+
+			redirect(base_url('login'));
+		}
+		
 	}
 
-// LOGIN
-public function index()
-{
-	$this->load->view('templates/header');
-	$this->load->view('login');
-	$this->load->view('templates/footer');
-	
-}
+	public function index()
+	{
+		$this->load->view('templates/header');
+		$this->load->view('dashboard');
+		$this->load->view('templates/footer');
 
-	public function login(){
-		$this->load->model('usermodel');
+	}
 
-		$this->form_validation->set_rules('id_number', 'ID Number', 'trim|numeric|required'); 
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');  
+	public function changepassword()
+	{
+		$this->load->model('usermodel'); 
+
+		$this->form_validation->set_rules('new_password', 'New Password', 'trim|required'); 
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required');  
 		
 		if($this->form_validation->run() == FALSE) {
-			$this->index();
+			$this->settings();
 		}
 		else {
-			$data = [
-				'id_number' => $this->input->post('id_number'),
-				'password' => md5($this->input->post('password')),
-			]; 
+			$instructor_id = $this->session->userdata('auth_user')->instructor_id;
 			
-			$user = new UserModel;
-			$result = $user->loginUser($data);
+			$updatedPassword = md5($this->input->post('confirm_password'));
 
-			if($result != FALSE) {
-				$this->session->set_userdata('authenticated', 1);
-				$this->session->set_userdata('auth_user', $result);
-				
-				redirect(base_url('dashboard'));
+			if($this->input->post('new_password') != $this->input->post('confirm_password')) {
+				$this->session->set_flashdata('status', 'Passwords do not match');
+				redirect(base_url('settings'));
 			}
 			else {
-				redirect(base_url('login'));
+				$user = new UserModel;
+				$result = $user->updateUserPassword($instructor_id, $updatedPassword);
+				
+				if($result != FALSE) {
+					$this->session->unset_userdata('authenticated');
+					$this->session->unset_userdata('auth_user');
+
+					$this->session->set_flashdata('status', 'Update Password Success. Please log in again.');
+					redirect(base_url('login'));
+				}
+				else {
+					$this->session->unset_userdata('authenticated');
+					$this->session->unset_userdata('auth_user');
+					
+					$this->session->set_flashdata('status', 'Something went wrong. Try logging in your old or new or contact administrator if issue still exists.');
+					redirect(base_url('login'));
+				}
 			}
 		}
 	}
@@ -63,37 +79,7 @@ public function index()
 		$this->load->view('forgot');
 		$this->load->view('templates/footer');
 	}
-// SIGNUP
-    public function signup()
-	{
-		$this->load->view('templates/header');
-		$this->load->view('signup');
-		$this->load->view('templates/footer');
-	}
-// INSERT SIGNED UP USER TO DB
-	public function insert()
-	{
-		$this->form_validation->set_rules('id', 'Instructor ID', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
-		$this->form_validation->set_rules('first_name', 'First Name', 'required');
-		$this->form_validation->set_rules('middle_name', 'Middle Name', 'required');
 
-		if($this->form_validation->run()){
-			$data = [
-				'instructor_id' => $this->input->post('id'),
-				'password' => md5($this->input->post('password')),
-				'last_name' => $this->input->post('last_name'),
-				'first_name' => $this->input->post('first_name'),
-				'middle_name' => $this->input->post('middle_name'),
-			];
-			$this->load->model('UserModel','user');
-			$this->user->insert($data);
-			redirect(base_url('login'));
-		}else{
-			$this->signup();
-		}
-	}
 // DASHBOARD
 	public function dashboard()
 	{
@@ -132,24 +118,23 @@ public function index()
 		$this->load->model('usermodel');
 		$user = new UserModel();
 		$instructor_id = $this->session->userdata('auth_user')->instructor_id;
-
+	
 		$getAllClass = $user->getAllClass($instructor_id);
-		$getAllClass = $getAllClass->result();
-		$subids = $getAllClass;
-		foreach($subids as $id) {
-			$getAllStudent = $user->getAllStudent($id->subject_id);
-			$data['students'] = $getAllStudent->result();
-		}
-
-		// var_dump($data['students']);
-		// $data['subIDs'] = $subids->subject_id;
 		
-		// $getAllStudent = $user->getAllStudent($subject_id);
-		// $data['students'] = $getAllStudent->result();
+		foreach( $getAllClass->result() as $class) {
+			$getAllStudent = $user->getAllStudent($class->subject_id);
 
+			if(count($getAllStudent->result()) > 0) {
+				foreach($getAllStudent->result() as $student) {
+					$data[] = $student;
+				}
+			}
+		}
+		// var_dump($data);
+		$data['students'] = $data;
+		// echo json_encode($data);
 		$this->load->view('templates/header');
-		// $this->load->view('pages/uploadstudent', $data);
-		$this->load->view('pages/uploadstudent');
+		$this->load->view('pages/uploadstudent', $data);
 		$this->load->view('templates/footer');	
 	}
 	

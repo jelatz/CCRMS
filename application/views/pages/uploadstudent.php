@@ -42,7 +42,6 @@
                         <table class="table table-bordered table-sm bg-white">
                             <thead>
                                 <tr>
-                                    <th>Student ID</th>
                                     <th>Student</th>
                                     <th>Email</th>
 									<th>Course & Year</th>
@@ -50,12 +49,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-								<tr>
-                                    <td>1011111</td>
-                                    <td>Mouse</td>
-                                    <td>Mickey</td>
-                                    <td>Disney</td>
-                                </tr>
+								<?php 
+									if(count($students) > 1) : 
+										foreach ($students as $student) : 
+											echo
+												"<tr>
+													<td>".$student->student."</td>
+													<td>".$student->email_address."</td>
+													<td>".$student->course_year."</td>
+													<td>".$student->subject."</td>
+												</tr>";
+										endforeach;
+									else : 
+										echo
+											"<tr>
+												<td>101101</td>
+												<td>Mickey Mouse</td>
+												<td>BSIT 1</td>
+												<td>IT412 Event Driven Programming</td>
+											</tr>";
+									endif;
+								?>
                             </tbody>
                         </table>
                     </div>

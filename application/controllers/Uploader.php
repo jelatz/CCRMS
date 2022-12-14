@@ -61,7 +61,7 @@ class Uploader extends CI_Controller {
 				$subject_id  	= $sheetdata[$i][7];
 
 				$data[] = array(
-					'student_id'  	=> $studentid,
+					'studentid'  	=> $studentid,
 					'last_name'   	=> $last_name,
 					'first_name'  	=> $first_name,
 					'middle_name' 	=> $middle_name,
@@ -77,7 +77,7 @@ class Uploader extends CI_Controller {
 			$uploadStudents = $uploader->uploadStudents($data);
 
 			if($uploadStudents) {
-				echo 'Data uploaded successfully';
+				redirect(base_url('uploadstudent'));
 			} else {
 				echo 'Data not uploaded. Please try again.';
 			}

@@ -21,42 +21,65 @@
                 </div>
             </div>
             <div class="col-md-10 px-5">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col">
                         <img src="<?php echo base_url('assets/CCRMS/Profile Picture_Accounts.png')?>" class="img-fluid" id="frame" title="" style="width: 8rem;">
                         <button type="file" class="position-relative rounded-pill fw-bold" style="top: 2rem; background-color: yellow;" onchange="preview()" accept="image/*" name="upload">
                             Update Photo
                         </button>
                     </div>
-                </div>
-                <form action="#" class="mt-3">
-                    <div class="row my-3">
-                        <label for="firstName" class="col-2 col-form-label">First Name: </label>
-                          <div class="col-5">
-                            <input type="text" class="form-control" required>
-                          </div>
-                    </div>
-                    <div class="row my-3">
-                        <label for="firstName" class="col-2 col-form-label">Middle Name: </label>
-                          <div class="col-5">
-                            <input type="text" class="form-control" required>
-                          </div>
-                    </div>
-                    <div class="row my-3">
-                        <label for="firstName" class="col-2 col-form-label">Last Name: </label>
-                          <div class="col-5">
-                            <input type="text" class="form-control" required>
-                          </div>
-                    </div>
-                    <div class="row my-3">
-                        <label for="firstName" class="col-2 col-form-label">Email Address: </label>
-                          <div class="col-5">
-                            <input type="email" class="form-control" required>
-                          </div>
-                    </div>
-                    <button type="submit" class="btn rounded-pill fw-bold btn-sm mt-2 px-2" style="background-color: yellow;">Update Password</button>
-                </form>
+                </div> -->
+				<span>
+					<p class="h4">Profile </p>
+				</span>
+				<div class="row my-3">
+					<label for="new_password" class="col-2 col-form-label">Instructor ID: </label>
+					<div class="col-3">
+						<h5 style="padding-top: 0.5rem"><?php echo $this->session->userdata('auth_user')->instructor_id; ?></h5>
+					</div>
+				</div>
+				<div class="row my-3">
+					<label for="new_password" class="col-2 col-form-label">Name: </label>
+					<div class="col-3">
+						<h5 style="padding-top: 0.5rem"><?php echo $this->session->userdata('auth_user')->last_name; ?>, <?php echo $this->session->userdata('auth_user')->first_name; ?> <?php echo $this->session->userdata('auth_user')->middle_name; ?> </h5>
+					</div>
+				</div>
+				
+				<form action="<?php echo base_url('changepassword')?>" method="POST">
+					<div class="row my-3">
+						<label for="new_password" class="col-2 col-form-label">New Password: </label>
+						<div class="col-3">
+							<input type="password" class="form-control mb-3" name="new_password">
+							<small><?php echo form_error('new_password'); ?></small>
+						</div>
+					</div>
 
+					<div class="row my-3">
+						<label for="confirm_password" class="col-2 col-form-label">Confirm Password: </label>
+						<div class="col-3">
+							<input type="password" class="form-control" name="confirm_password">
+							<small><?php echo form_error('confirm_password'); ?></small>
+						</div>
+					</div>
+					
+					<?php if ($this->session->flashdata('status')) : ?>
+						<br>
+						<div class="row my-3">
+							<div class="col-5">
+								<div class="alert alert-danger">
+									<?= $this->session->flashdata('status'); ?>
+								</div>
+							</div>
+						</div>
+					<?php endif; ?>
+
+					<div class="row my-3">
+						<div class="col-6">
+							<button type="submit" class="btn btn-primary rounded-pill fw-bold btn-md mt-2 px-3" style="margin-left: 27rem" name="lgn-btn">Update Password</button>
+						</div>
+					</div>
+                    
+				</form>
             </div>
         </div>
     </div>

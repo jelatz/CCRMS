@@ -25,6 +25,13 @@
                     <input type="password" class="form-control" style="background-color: yellow;" name="password">
 					<small><?php echo form_error('password'); ?></small>
 
+					<?php if ($this->session->flashdata('status')) : ?>
+						<br>
+						<div class="alert alert-danger">
+							<?php echo $this->session->flashdata('status'); ?>
+						</div>
+					<?php endif; ?>
+
                     <!-- ROW FOR BUTTON -->
                     <div class="row mt-5 text-center">
                         <!-- COLUMN FOR BUTTON -->
