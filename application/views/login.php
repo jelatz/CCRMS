@@ -28,7 +28,7 @@
 					<?php if ($this->session->flashdata('status')) : ?>
 						<br>
 						<div class="alert alert-danger">
-							<?php $this->session->flashdata('status'); ?>
+							<?php echo $this->session->flashdata('status'); ?>
 						</div>
 					<?php endif; ?>
 

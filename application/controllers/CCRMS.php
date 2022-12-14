@@ -6,47 +6,21 @@ class CCRMS extends CI_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('authentication');
+		if(!$this->session->has_userdata('authenticated'))
+		{
+			// $this->session->set_flashdata('status', 'You are already logged in');
+
+			redirect(base_url('login'));
+		}
+		
 	}
 
-// LOGIN
 	public function index()
 	{
 		$this->load->view('templates/header');
-		$this->load->view('login');
+		$this->load->view('dashboard');
 		$this->load->view('templates/footer');
 
-	}
-
-	public function login(){
-		$this->load->model('usermodel');
-
-		$this->form_validation->set_rules('id_number', 'ID Number', 'trim|numeric|required'); 
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');  
-		
-		if($this->form_validation->run() == FALSE) {
-			$this->index();
-		}
-		else {
-			$data = [
-				'id_number' => $this->input->post('id_number'),
-				'password' => md5($this->input->post('password')),
-			]; 
-			
-			$user = new UserModel;
-			$result = $user->loginUser($data);
-
-			if($result != FALSE) {
-				$this->session->set_userdata('authenticated', 1);
-				$this->session->set_userdata('auth_user', $result);
-				
-				redirect(base_url('dashboard'));
-			}
-			else {
-				$this->session->set_flashdata('status', 'Invalid ID Number or Password');
-				redirect(base_url('login'));
-			}
-		}
 	}
 
 	public function changepassword()
