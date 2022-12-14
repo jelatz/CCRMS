@@ -51,6 +51,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Login';
 $route['404_override'] = '';
+
+$route['login']['POST'] = 'CCRMS/login';
+$route['login']['GET'] = 'CCRMS';
+
+$route['insert']['POST'] = 'CCRMS/insert';
+$route['insert']['GET'] = 'CCRMS';
+
 $route['translate_uri_dashes'] = FALSE;
 
 // Login
@@ -69,3 +76,9 @@ $route['uploadclass'] = 'CCRMS/uploadclass';
 $route['uploadstudent'] = 'CCRMS/uploadstudent';
 $route['settings'] = 'CCRMS/settings';
 $route['attendance'] = 'CCRMS/attendance';
+
+$route['midterm'] = 'CCRMS/midterm';
+$route['prefi'] = 'CCRMS/prefi';
+$route['final'] = 'CCRMS/final';
+$route['cp'] = 'CCRMS/cp';
+$route['periodictest'] = 'CCRMS/periodictest';

@@ -86,11 +86,46 @@ class CCRMS extends CI_Controller {
 		$this->load->view('signup');
 		$this->load->view('templates/footer');
 	}
+// INSERT SIGNED UP USER TO DB
+	public function insert()
+	{
+		$this->form_validation->set_rules('id', 'Instructor ID', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
+		$this->form_validation->set_rules('first_name', 'First Name', 'required');
+		$this->form_validation->set_rules('middle_name', 'Middle Name', 'required');
+
+		if($this->form_validation->run()){
+			$data = [
+				'instructor_id' => $this->input->post('id'),
+				'password' => md5($this->input->post('password')),
+				'last_name' => $this->input->post('last_name'),
+				'first_name' => $this->input->post('first_name'),
+				'middle_name' => $this->input->post('middle_name'),
+			];
+			$this->load->model('UserModel','user');
+			$this->user->insert($data);
+			redirect(base_url('login'));
+		}else{
+			$this->signup();
+		}
+	}
 // DASHBOARD
 	public function dashboard()
 	{
+		$this->load->model('ClassModel');
+		$class = new ClassModel();
+		$instructor_id = $this->session->userdata('auth_user')->instructor_id;
+
+		$data['monday'] = $class->getDay($instructor_id, 'mon');
+		$data['tues'] = $class->getDay($instructor_id, 'tue');
+		$data['wed'] = $class->getDay($instructor_id, 'wed');
+		$data['thur'] = $class->getDay($instructor_id, 'thu');
+		$data['fri'] = $class->getDay($instructor_id, 'fri');
+		$data['sat'] = $class->getDay($instructor_id, 'sat');
+
 		$this->load->view('templates/header');
-		$this->load->view('pages/dashboard');
+		$this->load->view('pages/dashboard', $data);
 		$this->load->view('templates/footer');	
 	}
 // UPLOAD
@@ -140,13 +175,45 @@ class CCRMS extends CI_Controller {
 		$this->load->view('pages/settings');
 		$this->load->view('templates/footer');	
 	}
-// CLASSRECORD
+// CLASSRECORD/PRELIM
 	public function classrecord()
 	{
+		$this->load->model('ClassModel');
+		$data['all_data'] = $this->ClassModel->selectPrelimData();		
+		// $this->load->view('classrecord', $data);
+
 		$this->load->view('templates/header');
-		$this->load->view('pages/classrecord');
-		$this->load->view('templates/footer');	
+		$this->load->view('pages/classrecord' , $data);
+		$this->load->view('templates/footer');
 	}
+	
+// MIDTERM
+	public function midterm(){
+		$this->load->model('ClassModel');
+		$data['midterm_data'] = $this->ClassModel->selectMidtermData();	
+		
+		$this->load->view('templates/header');
+		$this->load->view('pages/midterm', $data);
+		$this->load->view('templates/footer');
+	}
+// PREFINAL
+	public function prefi(){
+		$this->load->model('ClassModel');
+		$data['prefi_data'] = $this->ClassModel->selectPrefiData();	
+
+		$this->load->view('templates/header');
+		$this->load->view('pages/prefi', $data);
+		$this->load->view('templates/footer');
+	}
+// FINAL
+public function final(){
+	$this->load->model('ClassModel');
+	$data['final_data'] = $this->ClassModel->selectFinalData();	
+
+	$this->load->view('templates/header');
+	$this->load->view('pages/final', $data);
+	$this->load->view('templates/footer');
+}
 // EXAMINATION
 	public function Examination(){
 		$data1 = array('Hello World');  
@@ -161,8 +228,18 @@ class CCRMS extends CI_Controller {
 		$this->load->view('pages/attendance');
 		$this->load->view('templates/footer');
 	}
-
-
+// CLASS PARTICIPATION
+	public function cp(){
+		$this->load->view('templates/header');
+		$this->load->view('pages/classparticipation');
+		$this->load->view('templates/footer');
+	}
+// PERIODICAL TEST
+	public function periodictest(){
+		$this->load->view('templates/header');
+		$this->load->view('pages/periodictest');
+		$this->load->view('templates/footer');
+	}
 }
 ?>
 

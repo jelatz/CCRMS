@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class UserModel extends CI_Model 
 {
-
+// LOGIN 
 	public function loginUser($data)
 	{
 		$this->db->select('*');
@@ -33,6 +33,14 @@ class UserModel extends CI_Model
 			return $query;
 		}
 	}
+
+// SIGN UP
+public function insert($data){
+    return $this->db->insert('instructor', $data);
+}
+
+
+    
 
 	public function getAllClass($instructor_id)
 	{

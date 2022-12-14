@@ -39,13 +39,6 @@
                             <button type="submit" class="btn btn-primary w-50" name="lgn-btn">LOG IN</button>
                         </div>
                     </div>
-                    <!-- ROW FOR FORGOT PASS -->
-                    <div class="row text-center mt-2">
-                        <!-- COLUMN FOR FORGOT PASS -->
-                        <div class="col">
-                            <a href="<?php echo base_url('forgot') ?>">Forgot Password</a>
-                        </div>
-                    </div>
                     <div class="row text-center mt-5">
                         <div class="col">
                             <p class="mb-0">Don't have an account yet?</p>
