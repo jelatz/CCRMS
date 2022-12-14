@@ -38,8 +38,8 @@
                     </div>
                 </div>
                 <div class="row text-end my-2 justify-content-between">
-                    <div class="col p-0">
-                        <h1 class="text-start">Prelim</h1>
+                <div class="col p-0">
+                        <h1 class="text-start">Midterm</h1>
                     </div>
                     <div class="col p-0">
                         <div class="dropdown">
@@ -47,8 +47,8 @@
                                 Select a Quarter
                             </button>
                             <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item active" href="<?php echo base_url('classrecord');?>">Prelim</a></li>
-                                <li><a class="dropdown-item" href="<?php echo base_url('midterm') ;?>">Midterm</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_url('classrecord');?>">Prelim</a></li>
+                                <li><a class="dropdown-item active" href="<?php echo base_url('midterm') ;?>">Midterm</a></li>
                                 <li><a class="dropdown-item" href="<?php echo base_url('prefi');?>">Pre-Finals</a></li>
                                 <li><a class="dropdown-item" href="<?php echo base_url('final');?>">Finals</a></li>
                             </ul>
@@ -64,33 +64,35 @@
                                     <th>Student ID</th>
                                     <th>Student</th>
                                     <th><a href="<?php echo base_url('attendance'); ?>" class="text-decoration-none text-dark">SQ(30%)</a></th>
-                                    <th><a href="<?php echo base_url('cp');?>" class="text-decoration-none text-dark">Class Participation(30%)</a></th>
+                                    <th><a href="" class="text-decoration-none text-dark">Class Participation(30%)</a></th>
                                     <th>Other Requirements(6.67%)</th>
-                                    <th> <a href="<?php echo base_url('periodictest');?>" class="text-decoration-none text-dark">Periodical Test (33.33%)</a></th>
+                                    <th> <a href="" class="text-decoration-none text-dark">Periodical Test (33.33%)</a></th>
                                     <th>Percentage</th>
                                     <th>Tentative</th>
                                     <th>Grade</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                    <?php 
-                                        foreach($all_data as $show){
+                                <tr>
+                                <?php 
+                                        foreach($midterm_data as $show2){
                                         ?>
                                 <tr>
-                                   <td><?php echo $show->student_id ;?></td>     
-                                   <td><?php echo $show->student?></td>     
-                                   <td><?php echo $show->grade_id ;?></td>     
-                                   <td><?php echo $show->attendance_id ;?></td>     
-                                   <td><?php echo $show->other_req ;?></td>     
-                                   <td><?php echo $show->pt_id ;?></td>     
-                                   <td><?php echo $show->percent ;?></td>     
-                                   <td><?php echo $show->tentative ;?></td>     
-                                   <td><?php echo $show->grade ;?></td>     
+                                   <td><?php echo $show2->student_id ;?></td>     
+                                   <td><?php echo $show2->student?></td>     
+                                   <td><?php echo $show2->grade_id ;?></td>     
+                                   <td><?php echo $show2->attendance_id ;?></td>     
+                                   <td><?php echo $show2->other_req ;?></td>     
+                                   <td><?php echo $show2->pt_id ;?></td>     
+                                   <td><?php echo $show2->percent ;?></td>     
+                                   <td><?php echo $show2->tentative ;?></td>     
+                                   <td><?php echo $show2->grade ;?></td>     
                                     
                                 </tr>
                                 <?php
                                         }
                                 ?>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -73,4 +73,9 @@ $route['uploadclass'] = 'CCRMS/uploadclass';
 $route['uploadstudent'] = 'CCRMS/uploadstudent';
 $route['settings'] = 'CCRMS/settings';
 $route['attendance'] = 'CCRMS/attendance';
-// $route['login'] = 'CCRMS/login';
+
+$route['midterm'] = 'CCRMS/midterm';
+$route['prefi'] = 'CCRMS/prefi';
+$route['final'] = 'CCRMS/final';
+$route['cp'] = 'CCRMS/cp';
+$route['periodictest'] = 'CCRMS/periodictest';

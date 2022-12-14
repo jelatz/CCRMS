@@ -39,7 +39,7 @@
                 </div>
                 <div class="row text-end my-2 justify-content-between">
                     <div class="col p-0">
-                        <h1 class="text-start">Prelim</h1>
+                        <h1 class="text-start">Pre-Final</h1>
                     </div>
                     <div class="col p-0">
                         <div class="dropdown">
@@ -47,9 +47,9 @@
                                 Select a Quarter
                             </button>
                             <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item active" href="<?php echo base_url('classrecord');?>">Prelim</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_url('classrecord');?>">Prelim</a></li>
                                 <li><a class="dropdown-item" href="<?php echo base_url('midterm') ;?>">Midterm</a></li>
-                                <li><a class="dropdown-item" href="<?php echo base_url('prefi');?>">Pre-Finals</a></li>
+                                <li><a class="dropdown-item active" href="<?php echo base_url('prefi');?>">Pre-Finals</a></li>
                                 <li><a class="dropdown-item" href="<?php echo base_url('final');?>">Finals</a></li>
                             </ul>
                         </div>
@@ -64,17 +64,18 @@
                                     <th>Student ID</th>
                                     <th>Student</th>
                                     <th><a href="<?php echo base_url('attendance'); ?>" class="text-decoration-none text-dark">SQ(30%)</a></th>
-                                    <th><a href="<?php echo base_url('cp');?>" class="text-decoration-none text-dark">Class Participation(30%)</a></th>
+                                    <th><a href="" class="text-decoration-none text-dark">Class Participation(30%)</a></th>
                                     <th>Other Requirements(6.67%)</th>
-                                    <th> <a href="<?php echo base_url('periodictest');?>" class="text-decoration-none text-dark">Periodical Test (33.33%)</a></th>
+                                    <th> <a href="" class="text-decoration-none text-dark">Periodical Test (33.33%)</a></th>
                                     <th>Percentage</th>
                                     <th>Tentative</th>
                                     <th>Grade</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                    <?php 
-                                        foreach($all_data as $show){
+                                <tr>
+                                <?php 
+                                        foreach($prefi_data as $show){
                                         ?>
                                 <tr>
                                    <td><?php echo $show->student_id ;?></td>     
@@ -91,6 +92,7 @@
                                 <?php
                                         }
                                 ?>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
