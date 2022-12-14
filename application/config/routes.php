@@ -69,7 +69,7 @@ $route['changepassword']['GET'] = 'CCRMS/changepassword';
 $route['changepassword']['POST'] = 'CCRMS/changepassword';
 
 $route['forgot'] = 'CCRMS/forgot';
-$route['signup'] = 'CCRMS/signup';
+$route['signup'] = 'Signup';
 $route['dashboard'] = 'CCRMS/dashboard';
 $route['classrecord'] = 'CCRMS/classrecord';
 $route['uploadclass'] = 'CCRMS/uploadclass';

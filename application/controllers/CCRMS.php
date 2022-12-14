@@ -79,37 +79,7 @@ class CCRMS extends CI_Controller {
 		$this->load->view('forgot');
 		$this->load->view('templates/footer');
 	}
-// SIGNUP
-    public function signup()
-	{
-		$this->load->view('templates/header');
-		$this->load->view('signup');
-		$this->load->view('templates/footer');
-	}
-// INSERT SIGNED UP USER TO DB
-	public function insert()
-	{
-		$this->form_validation->set_rules('id', 'Instructor ID', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
-		$this->form_validation->set_rules('first_name', 'First Name', 'required');
-		$this->form_validation->set_rules('middle_name', 'Middle Name', 'required');
 
-		if($this->form_validation->run()){
-			$data = [
-				'instructor_id' => $this->input->post('id'),
-				'password' => md5($this->input->post('password')),
-				'last_name' => $this->input->post('last_name'),
-				'first_name' => $this->input->post('first_name'),
-				'middle_name' => $this->input->post('middle_name'),
-			];
-			$this->load->model('UserModel','user');
-			$this->user->insert($data);
-			redirect(base_url('login'));
-		}else{
-			$this->signup();
-		}
-	}
 // DASHBOARD
 	public function dashboard()
 	{
